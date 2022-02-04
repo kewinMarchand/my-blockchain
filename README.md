@@ -18,7 +18,5 @@
 
 > ## Todo
 >
-> - Typescript
-> - Linter
 > - À peu près tout 😊
 >
