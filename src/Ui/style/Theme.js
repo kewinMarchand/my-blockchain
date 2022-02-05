@@ -31,6 +31,7 @@ const globalStylesOverride = {
         margin: '16px 0'
     },
     '.text-croped': {
+        whiteSpace: 'pre',
         textOverflow: 'ellipsis',
         overflow: 'hidden'
     },

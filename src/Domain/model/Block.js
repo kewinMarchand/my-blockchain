@@ -5,7 +5,7 @@ export class Block {
      * @param {number} timestamp
      * @param {Transaction[]} transactions
      * @param {string} previousHash
-     * @param hash
+     * @param {string} hash
      */
     constructor(timestamp, transactions, previousHash = '', hash = this.calculateHash()) {
         this.nonce = 0;

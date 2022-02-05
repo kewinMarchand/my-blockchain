@@ -1,5 +1,7 @@
 import {Card, CardContent, CardHeader, Typography} from "@mui/material";
 import {uiHelper} from "../../Domain/helpers/uiHelper";
+import {useContext} from "react";
+import {AppContext} from "./AppContext";
 
 const Line = ({title, value, ...otherProps}) => {
     return (
@@ -14,9 +16,21 @@ const Line = ({title, value, ...otherProps}) => {
     )
 }
 
-export const BlockCard = ({block, i}) => {
+export const BlockCard = ({block, selectedBlock, setSelectedBlock, i}) => {
+    const {storeBlockTransactions} = useContext(AppContext);
+
+    const handleBlockClick = (block) => () => {
+        setSelectedBlock(block);
+        storeBlockTransactions(block.transactions);
+    }
+
     return (
-        <Card square elevation={3}>
+        <Card
+            square
+            elevation={3}
+            onClick={handleBlockClick(block)}
+            sx={{border: `${null !== selectedBlock && selectedBlock.hash === block.hash ? '1px solid blue' : '1px solid transparent'}`, cursor: 'pointer'}}
+        >
             <CardHeader title={`Block ${i}`} sx={{boxShadow: '0 1px 1px 1px #00000030'}} />
             <CardContent>
                 <Line
