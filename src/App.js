@@ -1,15 +1,15 @@
 import React from "react";
 import {Container} from "@mui/material";
-import {BlocksList} from "./Ui/components/BlocksList";
 import {Layout} from "./Ui/components/Layout";
-import {TransactionsList} from "./Ui/components/TransactionsList";
+import {BlocksList} from "./Ui/components/BlocksList";
+import {TransactionsDialog} from "./Ui/components/TransactionsDialog";
 
 function App() {
     return (
         <Layout>
             <Container component={'main'}>
                 <BlocksList />
-                <TransactionsList />
+                <TransactionsDialog />
             </Container>
         </Layout>
     );

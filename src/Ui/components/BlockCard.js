@@ -16,11 +16,10 @@ const Line = ({title, value, ...otherProps}) => {
     )
 }
 
-export const BlockCard = ({block, selectedBlock, setSelectedBlock, i}) => {
-    const {storeBlockTransactions} = useContext(AppContext);
+export const BlockCard = ({block, i}) => {
+    const {blockTransactions, storeBlockTransactions} = useContext(AppContext);
 
     const handleBlockClick = (block) => () => {
-        setSelectedBlock(block);
         storeBlockTransactions(block.transactions);
     }
 
@@ -29,7 +28,7 @@ export const BlockCard = ({block, selectedBlock, setSelectedBlock, i}) => {
             square
             elevation={3}
             onClick={handleBlockClick(block)}
-            sx={{border: `${null !== selectedBlock && selectedBlock.hash === block.hash ? '1px solid blue' : '1px solid transparent'}`, cursor: 'pointer'}}
+            sx={{border: `${null !== blockTransactions && blockTransactions === block.transactions ? '1px solid blue' : '1px solid transparent'}`, cursor: 'pointer'}}
         >
             <CardHeader title={`Block ${i}`} sx={{boxShadow: '0 1px 1px 1px #00000030'}} />
             <CardContent>
