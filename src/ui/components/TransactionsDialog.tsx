@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {ReactElement, useContext} from "react";
 import {AppContext} from "./AppContext";
 import {
     Dialog,
@@ -11,8 +11,9 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
+import {Transaction} from "../../domain/model/Transaction";
 
-export const TransactionsDialog = () => {
+export const TransactionsDialog = (): ReactElement => {
     const {blockTransactions, storeBlockTransactions} = useContext(AppContext);
 
     function handleClickAway() {
@@ -47,14 +48,14 @@ export const TransactionsDialog = () => {
                                         <TableCell style={{maxWidth: 150}}/>
                                     </TableRow>
                                     :
-                                    blockTransactions.map((tx) => (
+                                    blockTransactions.map((tx: Transaction) => (
                                         <TableRow key={tx.timestamp}>
                                             <TableCell component="th" scope="row">
                                                 {tx.amount}
                                             </TableCell>
                                             <TableCell style={{maxWidth: 150}}>
                                                 <Typography className={'text-croped'}>
-                                                    {tx.fromAddress}
+                                                    {tx.fromAddress ?? 'Server'}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell style={{maxWidth: 150}}>

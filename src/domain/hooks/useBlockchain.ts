@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {Dispatch, useEffect, useState} from "react";
 import {ec as EC} from "elliptic";
 import {Block} from "../model/Block";
 import {Blockchain} from "../model/Blockchain";
@@ -14,12 +14,7 @@ const otherKey = ec.keyFromPrivate('1ba948a551407a073e9a1412cc98cbe5d37872fb691d
 const otherWalletAddress = otherKey.getPublic('hex');
 /*test keys*/
 
-/**
- *
- * @param tx
- * @param signinKey
- */
-function signTransaction(tx, signinKey) {
+function signTransaction(tx: Transaction, signinKey: any) {
     if (null === tx.fromAddress) {
         const hashTx = tx.calculateHash();
         const sig = signinKey.sign(hashTx, 'base64');
@@ -36,13 +31,8 @@ function signTransaction(tx, signinKey) {
     tx.signature = sig.toDER('hex');
 }
 
-/**
- *
- * @param block
- * @returns {Block}
- */
-function recreateBlock(block) {
-    let recreatedTransactions = [];
+function recreateBlock(block: Block): Block {
+    let recreatedTransactions: any[] = [];
     if (0 < block.transactions.length) {
         block.transactions.forEach(transaction => {
             const tx = new Transaction(transaction.fromAddress, transaction.toAddress, transaction.amount)
@@ -54,41 +44,25 @@ function recreateBlock(block) {
     return new Block(block.timestamp, recreatedTransactions, block.previousHash, block.hash);
 }
 
-/**
- *
- * @param parsedChain
- * @returns {Blockchain}
- */
-function recreateChain(parsedChain) {
-    let recreatedChain = [];
-    parsedChain.chain.forEach(block => {
+function recreateChain(parsedChain: any): Blockchain {
+    let recreatedChain: Block[] = [];
+    parsedChain.chain.forEach((block: Block) => {
         recreatedChain.push(recreateBlock(block));
     })
 
     return new Blockchain(recreatedChain, parsedChain.difficulty, parsedChain.pendingTransactions, parsedChain.miningReward, parsedChain.chainValue);
 }
 
-/**
- *
- * @returns {[unknown, ((value: unknown) => void)]}
- */
-export const useBlockchain = () => {
-    const [blockchain, setBlockchain] = useState(null);
+export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
+    const [blockchain, setBlockchain] = useState<Blockchain|null>(null);
 
-    /**
-     *
-     * @param chain
-     */
-    function storeChain(chain) {
+    function storeChain(chain: Blockchain) {
         localStorage.setItem('chain', JSON.stringify(chain));
         setBlockchain(chain);
 
         console.log(chain)
     }
 
-    /**
-     *
-     */
     function getChain() {
         let chainFromStorage = localStorage.getItem('chain');
         if (null !== chainFromStorage) {
@@ -99,11 +73,7 @@ export const useBlockchain = () => {
 
     }
 
-    /**
-     *
-     * @param chain
-     */
-    function createFirstBlock(chain) {
+    function createFirstBlock(chain: Blockchain) {
         if (null === chain) {
             return;
         }

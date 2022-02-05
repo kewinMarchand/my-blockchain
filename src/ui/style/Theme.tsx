@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {ThemeProvider} from '@mui/material/styles';
 import {CssBaseline, GlobalStyles} from "@mui/material";
 import { createTheme } from '@mui/material/styles';
@@ -46,7 +46,6 @@ const globalStylesOverride = {
 
 const theme = createTheme({
     palette: {
-        type: 'light',
         primary: {
             main: '#282c34',
         },
@@ -82,7 +81,7 @@ const theme = createTheme({
     },
 });
 
-export const Theme = ({children}) => {
+export const Theme = ({children}: {children: ReactElement[]}) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

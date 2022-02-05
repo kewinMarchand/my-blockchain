@@ -1,19 +1,16 @@
-import React, {createContext, useState} from "react";
-import {useBlockchain} from "../../Domain/hooks/useBlockchain";
+import React, {createContext, ReactElement, useState} from "react";
+import {useBlockchain} from "../../domain/hooks/useBlockchain";
 import {Typography} from "@mui/material";
-import {Flexbox} from "./FlexBox";
+import {Flexbox} from "./Flexbox";
+import {Transaction} from "../../domain/model/Transaction";
 
 export const AppContext = createContext(null);
 
-export const AppProvider = ({children}) => {
+export const AppProvider = ({children}: {children: ReactElement}): ReactElement => {
     const [myCoin,] = useBlockchain();
-    const [blockTransactions, setBlockTransactions] = useState(null);
+    const [blockTransactions, setBlockTransactions] = useState<Transaction[]|null>(null);
 
-    /**
-     *
-     * @param transactions {any[]|null}
-     */
-    function storeBlockTransactions(transactions) {
+    function storeBlockTransactions(transactions: Transaction[]|null) {
         setBlockTransactions(transactions);
     }
 

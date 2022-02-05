@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-//import reportWebVitals from './helpers/reportWebVitals';
+import reportWebVitals from './domain/helpers/reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -11,4 +11,4 @@ ReactDOM.render(
 );
 
 //Learn more: https://bit.ly/CRA-vitals
-//reportWebVitals(console.log);
+reportWebVitals(console.log);

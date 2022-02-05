@@ -3,12 +3,12 @@ const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
 export class Transaction {
-    /**
-     * @param {string} fromAddress
-     * @param {string} toAddress
-     * @param {number} amount
-     */
-    constructor(fromAddress, toAddress, amount) {
+    public fromAddress: any;
+    public toAddress: any;
+    public amount: any;
+    public timestamp: any;
+    public signature: string;
+    constructor(fromAddress: string, toAddress: string, amount: number) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
@@ -29,10 +29,8 @@ export class Transaction {
      * Signs a transaction with the given signingKey (which is an Elliptic keypair
      * object that contains a private key). The signature is then stored inside the
      * transaction object and later stored on the blockchain.
-     *
-     * @param {string} signingKey
      */
-    signTransaction(signingKey) {
+    signTransaction(signingKey: any) {
         // You can only send a transaction from the wallet that is linked to your
         // key. So here we check if the fromAddress matches your publicKey
         if (signingKey.getPublic('hex') !== this.fromAddress) {
@@ -51,8 +49,6 @@ export class Transaction {
     /**
      * Checks if the signature is valid (transaction has not been tampered with).
      * It uses the fromAddress as the public key.
-     *
-     * @returns {boolean}
      */
     isValid() {
         // If the transaction doesn't have a from address we assume it's a

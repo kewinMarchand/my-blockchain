@@ -1,10 +1,10 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Container} from "@mui/material";
-import {Layout} from "./Ui/components/Layout";
-import {BlocksList} from "./Ui/components/BlocksList";
-import {TransactionsDialog} from "./Ui/components/TransactionsDialog";
+import {Layout} from "./ui/components/Layout";
+import {BlocksList} from "./ui/components/BlocksList";
+import {TransactionsDialog} from "./ui/components/TransactionsDialog";
 
-function App() {
+function App(): ReactElement {
     return (
         <Layout>
             <Container component={'main'}>

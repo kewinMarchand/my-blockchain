@@ -1,9 +1,11 @@
 import {Card, CardContent, CardHeader, Typography} from "@mui/material";
-import {uiHelper} from "../../Domain/helpers/uiHelper";
-import {useContext} from "react";
+import {uiHelper} from "../../domain/helpers/uiHelper";
+import {ReactElement, useContext} from "react";
 import {AppContext} from "./AppContext";
+import {Block} from "../../domain/model/Block";
+import React from "react";
 
-const Line = ({title, value, ...otherProps}) => {
+const Line = ({title, value, ...otherProps}: {title: string, value: string, otherProps?: any}): ReactElement => {
     return (
         <>
             <Typography variant={'h6'}>
@@ -16,10 +18,10 @@ const Line = ({title, value, ...otherProps}) => {
     )
 }
 
-export const BlockCard = ({block, i}) => {
+export const BlockCard = ({block, i}: {block: Block, i: number}): ReactElement => {
     const {blockTransactions, storeBlockTransactions} = useContext(AppContext);
 
-    const handleBlockClick = (block) => () => {
+    const handleBlockClick = (block: Block) => () => {
         storeBlockTransactions(block.transactions);
     }
 
@@ -35,6 +37,7 @@ export const BlockCard = ({block, i}) => {
                 <Line
                     title={'Hash'}
                     value={block.hash}
+                    // @ts-ignore
                     sx={uiHelper.getColorByHash(block.hash)}
                     className={"text-croped"}
                 />
@@ -42,6 +45,7 @@ export const BlockCard = ({block, i}) => {
                 <Line
                     title={'Previous Hash'}
                     value={"0" === block.previousHash ? 'I am the genesis block' : block.previousHash}
+                    // @ts-ignore
                     sx={uiHelper.getColorByHash(block.previousHash)}
                     className={"text-croped"}
                 />
