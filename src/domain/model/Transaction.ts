@@ -23,8 +23,7 @@ export class Transaction {
      * @returns {string}
      */
     calculateHash() {
-        return SHA256(this.fromAddress + this.toAddress + this.amount + this.timestamp)
-            .toString();
+        return SHA256(this.fromAddress + this.toAddress + this.amount + this.timestamp).toString();
     }
 
     /**
@@ -32,7 +31,7 @@ export class Transaction {
      * object that contains a private key). The signature is then stored inside the
      * transaction object and later stored on the blockchain.
      */
-    signTransaction(signingKey: any) {
+    signTransaction(signingKey: typeof EC) {
         // You can only send a transaction from the wallet that is linked to your
         // key. So here we check if the fromAddress matches your publicKey
         if (signingKey.getPublic('hex') !== this.fromAddress) {
@@ -41,10 +40,9 @@ export class Transaction {
 
 
         // Calculate the hash of this transaction, sign it with the key
-        // and store it inside the transaction obect
+        // and store it inside the transaction object
         const hashTx = this.calculateHash();
-        const sig = signingKey.sign(hashTx, 'base64');
-
+        const sig = signingKey.sign('msg', hashTx, 'base64');
         this.signature = sig.toDER('hex');
     }
 
@@ -63,6 +61,7 @@ export class Transaction {
         }
 
         const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
+
         return publicKey.verify(this.calculateHash(), this.signature);
     }
 }

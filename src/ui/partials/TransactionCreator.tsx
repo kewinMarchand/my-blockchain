@@ -1,35 +1,42 @@
-import React, {ReactElement, useContext, useState} from "react";
+import React, {ReactElement, useContext, useEffect, useRef, useState} from "react";
 import {Box, Button, InputAdornment, TextField} from "@mui/material";
 import {AppContext} from "../components/AppContext";
 import {Section} from "../components/Section";
 import {Transaction} from "../../domain/model/Transaction";
 import {recreateChain} from "../../domain/hooks/useBlockchain";
-import {getKeyFromPublic} from "../../domain/helpers/keygenerator";
+import {getKeyFromPrivate} from "../../domain/helpers/keygenerator";
 
 type TransactionFormValues = {to: string, amount: number};
 
 export const TransactionCreator = (): ReactElement => {
     const {myCoin, setBlockchain, user, userWalletValue} = useContext(AppContext);
     const [transactionFormValues, setTransactionFormValues] = useState<TransactionFormValues>({to: '', amount: 0});
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    function handleBlur(event: any) {
+    function handleChange(event: any) {
         setTransactionFormValues(prevState => ({...prevState, [event.target.name]: event.target.value}))
     }
 
     function handleSubmit(event: any) {
         event.preventDefault();
-        if (null === user) {
+        if (null === user || 0 === transactionFormValues.amount) {
             return;
         }
-
-        const key = getKeyFromPublic(user.publicKey);
-        const tx1 = new Transaction(key.getPublic('hex'), transactionFormValues.to, transactionFormValues.amount);
-        tx1.signTransaction(key);
+        const Key = getKeyFromPrivate(user.privateKey);
+        const tx1 = new Transaction(Key.getPublic('hex'), transactionFormValues.to, transactionFormValues.amount);
+        tx1.signTransaction(Key);
         myCoin?.addTransaction(tx1);
+        if (inputRef?.current) {
+            inputRef.current.value = "";
+        }
         setBlockchain(recreateChain(myCoin));
     }
 
-    if (null === user || null === user.publicKey || 0 === userWalletValue) {
+    useEffect(() => {
+        setTransactionFormValues({to: '', amount: 0})
+    }, [myCoin]);
+
+    if (null === user || 0 === userWalletValue) {
         return <></>;
     }
 
@@ -51,15 +58,15 @@ export const TransactionCreator = (): ReactElement => {
                     <TextField
                         name={'to'}
                         label={'To address'}
-                        defaultValue={''}
-                        onBlur={handleBlur}
+                        value={transactionFormValues.to}
+                        onChange={handleChange}
                     />
                     <TextField
+                        inputRef={inputRef}
                         name={'amount'}
                         label={'Amount'}
                         type={'number'}
-                        defaultValue={null}
-                        onBlur={handleBlur}
+                        onChange={handleChange}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">

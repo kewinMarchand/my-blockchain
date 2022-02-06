@@ -48,7 +48,7 @@ export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
     useEffect(getChain, []);
     useEffect(() => storeChain(blockchain), [blockchain]);
 
-    console.log({blockchain});
+    //console.log({blockchain});
 
     return [blockchain, setBlockchain];
 }

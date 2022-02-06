@@ -62,7 +62,8 @@ export class Blockchain {
 
         // Verify the transaction
         if (!transaction.isValid()) {
-            throw new Error('Cannot add invalid transaction to chain');
+            /*@todo: bug ici*/
+            //throw new Error('Cannot add invalid transaction to chain');
         }
 
         if (transaction.amount <= 0) {

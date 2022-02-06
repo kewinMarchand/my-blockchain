@@ -1,16 +1,19 @@
-#WIP: blockchain en Typescript
+#Blockchain en Typescript (Projet en cours)
+
 
 Site statique à but éducatif servant à manipuler une blockchain.
 
-La blockchain est stockée dans le local storage.
+La blockchain et les infos de l'utilisateur sont stockés dans le local storage.
 
-L'interface est accessible [ici](https://kma-typescript-blockchain.netlify.app/).
+L'interface est accessible [ici](https://kma-typescript-blockchain.netlify.app/). 😊
 
 > ## Actions possibles
 >
+> - S'enregistrer et reçevoir 100 tokens générés pour l'occasion
 > - Créer des transactions
-> - Miner un block
-> - Recevoir une récompense pour le minage
+> - Miner les block
+>  - Recevoir 100 tokens de récompense pour le minage
+>
 
 > ## Technos
 >
@@ -25,9 +28,4 @@ L'interface est accessible [ici](https://kma-typescript-blockchain.netlify.app/)
 > ## Run
 >
 > - `yarn start`
->
-
-> ## Todo
->
-> - À peu près tout 😊
 >
