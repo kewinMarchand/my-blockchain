@@ -9,12 +9,13 @@ export class Block {
     public transactions: Transaction[];
     public hash: string;
 
-    constructor(timestamp: number, transactions: Transaction[], previousHash = '', hash: string = '') {
+    // @ts-ignore
+    constructor(timestamp: number, transactions: Transaction[], previousHash = '', hash = this.calculateHash()) {
         this.nonce = 0;
         this.previousHash = previousHash;
         this.timestamp = timestamp;
         this.transactions = transactions;
-        this.hash = this.calculateHash();
+        this.hash = hash;
     }
 
     /**

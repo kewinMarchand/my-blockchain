@@ -1,12 +1,16 @@
 import {Block} from "./Block";
 import {Transaction} from "./Transaction";
+// @ts-ignore
+import blockchainIcon from '../../ui/assets/blockchainIcon.png';
 
 export class Blockchain {
     public chain: Block[];
     public difficulty: number;
-    public pendingTransactions: any[];
+    public pendingTransactions: Transaction[];
     public miningReward: number;
     public chainValue: number;
+    public icon: string;
+
     // @ts-ignore
     constructor(chain = [this.createGenesisBlock()], difficulty = 2, pendingTransactions: Transaction[] = [], miningReward= 100, chainValue = 0) {
         this.chain = chain;
@@ -14,6 +18,7 @@ export class Blockchain {
         this.pendingTransactions = pendingTransactions;
         this.miningReward = miningReward;
         this.chainValue = chainValue;
+        this.icon = blockchainIcon;
     }
 
     createGenesisBlock(): Block {

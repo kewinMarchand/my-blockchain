@@ -6,8 +6,8 @@ import {AppProvider} from "./AppContext";
 export const Layout = ({children}: {children: ReactElement}): ReactElement => {
     return (
         <Theme>
-            <Header/>
             <AppProvider>
+                <Header/>
                 {children}
             </AppProvider>
         </Theme>

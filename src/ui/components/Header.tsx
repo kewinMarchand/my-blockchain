@@ -1,19 +1,18 @@
-import React, {ReactElement} from "react";
-import {Typography} from "@mui/material";
-import {Flexbox} from "./Flexbox";
-// @ts-ignore
-import logo from '../assets/logo.svg';
+import React, {ReactElement, useContext} from "react";
+import {Box, Typography} from "@mui/material";
+import {AppContext} from "./AppContext";
 
 export const Header = (): ReactElement => {
+    const {myCoin} = useContext(AppContext);
+
     return (
-        // @ts-ignore
-        <Flexbox component={'header'} bgcolor={'primary.main'} sx={{height: 80}}>
+        <Box display={'flex'} component={'header'} justifyContent={'center'} alignItems={'center'} bgcolor={'primary.main'} gap={2} sx={{height: 72}}>
             <picture>
-                <img src={logo} alt={"logo"} height={48} width={48} className={'spin'}/>
+                <img src={myCoin.icon} alt={"logo"} height={48} width={48} className={'spin'}/>
             </picture>
             <Typography variant={'h1'} color={"white"} data-testid={'appTitle'}>
                 My coin
             </Typography>
-        </Flexbox>
+        </Box>
     );
 }

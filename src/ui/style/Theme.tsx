@@ -39,8 +39,8 @@ const globalStylesOverride = {
         animation: 'spin infinite 20s linear'
     },
     '@keyframes spin': {
-        'from': {transform: 'rotate(0deg)'},
-        'to': {transform: 'rotate(360deg)'}
+        'from': {transform: 'rotateY(0deg)'},
+        'to': {transform: 'rotateY(360deg)'}
     }
 }
 
@@ -50,7 +50,7 @@ const theme = createTheme({
             main: '#282c34',
         },
         secondary: {
-            main: '#f50057',
+            main: '#BADA55',
         },
     },
     typography: {
@@ -81,10 +81,11 @@ const theme = createTheme({
     },
 });
 
-export const Theme = ({children}: {children: ReactElement[]}) => {
+export const Theme = ({children}: {children: ReactElement|ReactElement[]}) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
+            {/*// @ts-ignore*/}
             <GlobalStyles styles={globalStylesOverride} />
             {children}
         </ThemeProvider>

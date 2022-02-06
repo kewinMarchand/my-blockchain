@@ -5,7 +5,7 @@ import {AppContext} from "./AppContext";
 import {Block} from "../../domain/model/Block";
 import React from "react";
 
-const Line = ({title, value, ...otherProps}: {title: string, value: string, otherProps?: any}): ReactElement => {
+const Line = ({title, value, ...otherProps}: {title: string, value: string|number, otherProps?: any}): ReactElement => {
     return (
         <>
             <Typography variant={'h6'}>

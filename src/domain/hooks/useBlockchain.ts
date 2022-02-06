@@ -19,6 +19,7 @@ function signTransaction(tx: Transaction, signinKey: any) {
         const hashTx = tx.calculateHash();
         const sig = signinKey.sign(hashTx, 'base64');
         tx.signature = sig.toDER('hex');
+
         return;
     }
 
@@ -35,8 +36,7 @@ function recreateBlock(block: Block): Block {
     let recreatedTransactions: any[] = [];
     if (0 < block.transactions.length) {
         block.transactions.forEach(transaction => {
-            const tx = new Transaction(transaction.fromAddress, transaction.toAddress, transaction.amount)
-            signTransaction(tx, myWalletAddress === transaction.fromAddress ? myKey : otherKey);
+            const tx = new Transaction(transaction.fromAddress, transaction.toAddress, transaction.amount, transaction.signature)
             recreatedTransactions.push(tx);
         })
     }
@@ -44,7 +44,7 @@ function recreateBlock(block: Block): Block {
     return new Block(block.timestamp, recreatedTransactions, block.previousHash, block.hash);
 }
 
-function recreateChain(parsedChain: any): Blockchain {
+export function recreateChain(parsedChain: any): Blockchain {
     let recreatedChain: Block[] = [];
     parsedChain.chain.forEach((block: Block) => {
         recreatedChain.push(recreateBlock(block));
@@ -53,14 +53,13 @@ function recreateChain(parsedChain: any): Blockchain {
     return new Blockchain(recreatedChain, parsedChain.difficulty, parsedChain.pendingTransactions, parsedChain.miningReward, parsedChain.chainValue);
 }
 
+
 export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
     const [blockchain, setBlockchain] = useState<Blockchain|null>(null);
 
     function storeChain(chain: Blockchain) {
         localStorage.setItem('chain', JSON.stringify(chain));
         setBlockchain(chain);
-
-        console.log(chain)
     }
 
     function getChain() {
@@ -68,41 +67,14 @@ export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
         if (null !== chainFromStorage) {
             storeChain(recreateChain(JSON.parse(chainFromStorage)));
         } else {
-            createFirstBlock(new Blockchain());
+            storeChain(new Blockchain())
         }
 
-    }
-
-    function createFirstBlock(chain: Blockchain) {
-        if (null === chain) {
-            return;
-        }
-        console.log('My balance is', chain.getBalanceOfAddress(myWalletAddress));
-
-        const tx1 = new Transaction(myWalletAddress, otherWalletAddress, 10);
-        tx1.signTransaction(myKey);
-        chain.addTransaction(tx1);
-
-        const tx2 = new Transaction(myWalletAddress, otherWalletAddress, 30);
-        tx2.signTransaction(myKey);
-        chain.addTransaction(tx2);
-
-        const tx3 = new Transaction(otherWalletAddress, myWalletAddress, 30);
-        tx3.signTransaction(otherKey);
-        chain.addTransaction(tx3);
-
-        //console.log('Starting the miner...');
-        chain.minePendingTransactions(myWalletAddress);
-
-        if (chain.isChainValid()) {
-            console.log('My balance is', chain.getBalanceOfAddress(myWalletAddress));
-            console.log('Other balance is', chain.getBalanceOfAddress(otherWalletAddress));
-            console.log('My Transactions:', chain.getAllTransactionsForWallet(myWalletAddress));
-            storeChain(chain);
-        }
     }
 
     useEffect(getChain, []);
 
-    return [blockchain, setBlockchain]
+    //console.log({blockchain});
+
+    return [blockchain, storeChain]
 }

@@ -8,11 +8,12 @@ export class Transaction {
     public amount: any;
     public timestamp: any;
     public signature: string;
-    constructor(fromAddress: string, toAddress: string, amount: number) {
+    constructor(fromAddress: string, toAddress: string, amount: number, signature = '') {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
         this.timestamp = Date.now();
+        this.signature = signature;
     }
 
     /**

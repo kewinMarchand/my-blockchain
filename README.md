@@ -3,9 +3,12 @@
 > ## Technos
 >
 > - Typescript
-> - React (custom hooks, context API, ...)
+> - React :
+>  - custom hooks
+>  - context API
+>  - ...
 > - Mui
-> - Jest
+> - local storage
 >
 
 > ## Scripts
