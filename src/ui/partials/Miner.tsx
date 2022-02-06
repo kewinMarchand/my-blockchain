@@ -6,21 +6,24 @@ import {recreateChain} from "../../domain/hooks/useBlockchain";
 import {TransactionsTable} from "../components/TransactionsTable";
 
 export const Miner = (): ReactElement => {
-    const {myCoin, setBlockchain, key} = useContext(AppContext);
+    const {myCoin, setBlockchain, user} = useContext(AppContext);
 
-    if (null === myCoin) {
+    if (null === myCoin || null === user) {
         return <></>;
     }
 
     function handleClick() {
-        myCoin?.minePendingTransactions(key.getPublic('hex'));
+        if (null === user) {
+            return;
+        }
+        myCoin?.minePendingTransactions(user.publicKey);
         setBlockchain(recreateChain(myCoin));
     }
 
     return (
         <Section
             title={'Mine pending transactions'}
-            subtitle={0 === myCoin.pendingTransactions.length ? 'No pending transactions' : 'Mine this block & earn 100 tokens'}
+            subtitle={0 === myCoin.pendingTransactions.length ? 'No pending transactions' : 'Mine this block & earn 100 tokens, mining creates tokens assigned to you'}
         >
             <TransactionsTable transactions={myCoin.pendingTransactions}/>
             <Box mt={3}>

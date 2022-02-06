@@ -15,6 +15,7 @@ export const Section = ({title, subtitle, children}: {title: string, subtitle: s
             <Box mb={6} mt={2}>
                 {children}
             </Box>
+            <hr/>
         </section>
     );
 }

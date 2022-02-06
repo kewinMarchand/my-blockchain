@@ -30,7 +30,7 @@ export const TransactionsTable = ({transactions}: {transactions: Transaction[]})
                     {0 === transactions.length ?
                         <TableRow>
                             <TableCell colSpan={5} align={'center'}>
-                                No transactions yet.
+                                No transactions.
                             </TableCell>
                         </TableRow>
                         :

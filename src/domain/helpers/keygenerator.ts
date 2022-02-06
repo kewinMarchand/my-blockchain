@@ -10,7 +10,13 @@ console.log({privateKey});*/
 
 export function getKeyPair(): KeyPair {
     const ec = new EC('secp256k1');
-    const key = ec.genKeyPair();
 
-    return key;
+    return ec.genKeyPair();
 }
+
+export function getKeyFromPublic(publicKey: string): KeyPair {
+    const ec = new EC('ed25519');
+
+    return ec.keyFromPublic(publicKey, 'hex');
+}
+

@@ -4,11 +4,12 @@ import {AppContext} from "../components/AppContext";
 import {Section} from "../components/Section";
 import {Transaction} from "../../domain/model/Transaction";
 import {recreateChain} from "../../domain/hooks/useBlockchain";
+import {getKeyFromPublic} from "../../domain/helpers/keygenerator";
 
 type TransactionFormValues = {to: string, amount: number};
 
 export const TransactionCreator = (): ReactElement => {
-    const {myCoin, setBlockchain, key} = useContext(AppContext);
+    const {myCoin, setBlockchain, user, userWalletValue} = useContext(AppContext);
     const [transactionFormValues, setTransactionFormValues] = useState<TransactionFormValues>({to: '', amount: 0});
 
     function handleBlur(event: any) {
@@ -17,13 +18,18 @@ export const TransactionCreator = (): ReactElement => {
 
     function handleSubmit(event: any) {
         event.preventDefault();
+        if (null === user) {
+            return;
+        }
+
+        const key = getKeyFromPublic(user.publicKey);
         const tx1 = new Transaction(key.getPublic('hex'), transactionFormValues.to, transactionFormValues.amount);
         tx1.signTransaction(key);
         myCoin?.addTransaction(tx1);
         setBlockchain(recreateChain(myCoin));
     }
 
-    if (!key) {
+    if (null === user || null === user.publicKey || 0 === userWalletValue) {
         return <></>;
     }
 
@@ -37,7 +43,7 @@ export const TransactionCreator = (): ReactElement => {
                     <TextField
                         name={'from'}
                         label={'From address'}
-                        defaultValue={key.getPublic('hex')}
+                        defaultValue={user.publicKey}
                         InputProps={{
                             readOnly: true,
                         }}
