@@ -8,7 +8,7 @@ export const Header = (): ReactElement => {
     return (
         <Box display={'flex'} component={'header'} justifyContent={'center'} alignItems={'center'} bgcolor={'primary.main'} gap={2} sx={{height: 72}}>
             <picture>
-                <img src={myCoin.icon} alt={"logo"} height={48} width={48} className={'spin'}/>
+                <img src={myCoin?.icon} alt={"logo"} height={48} width={48} className={'spin'}/>
             </picture>
             <Typography variant={'h1'} color={"white"} data-testid={'appTitle'}>
                 My coin

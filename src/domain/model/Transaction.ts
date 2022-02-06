@@ -3,17 +3,18 @@ const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
 export class Transaction {
-    public fromAddress: any;
-    public toAddress: any;
-    public amount: any;
-    public timestamp: any;
+    public fromAddress: string|null;
+    public toAddress: string;
+    public amount: number;
     public signature: string;
-    constructor(fromAddress: string, toAddress: string, amount: number, signature = '') {
+    public timestamp: any;
+
+    constructor(fromAddress: string|null, toAddress: string, amount: number, signature = '') {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
-        this.timestamp = Date.now();
         this.signature = signature;
+        this.timestamp = Date.now();
     }
 
     /**

@@ -1,5 +1,15 @@
 #WIP: blockchain en Javascript
 
+Site statique à but éducatif servant à manipuler une blockchain.
+
+La blockchain est stockée dans le local storage.
+
+> ## Actions possibles
+>
+> - Créer des transactions
+> - Miner un block
+> - Recevoir une récompense pour le minage
+
 > ## Technos
 >
 > - Typescript
@@ -8,17 +18,12 @@
 >  - context API
 >  - ...
 > - Mui
-> - local storage
+> - API Web Storage
 >
 
-> ## Scripts
+> ## Run
 >
 > - `yarn start`
-> - `yarn watch`
-> - `yarn test`
-> - `yarn build`
-> - `yarn eject`
-> - `yarn stop`
 >
 
 > ## Todo

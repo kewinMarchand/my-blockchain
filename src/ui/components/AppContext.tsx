@@ -3,8 +3,12 @@ import {useBlockchain} from "../../domain/hooks/useBlockchain";
 import {Box, Typography} from "@mui/material";
 import {Transaction} from "../../domain/model/Transaction";
 import {getKeyPair} from "../../domain/helpers/keygenerator";
+import {Blockchain} from "../../domain/model/Blockchain";
 
-export const AppContext = createContext(null);
+type AppContextProps = { myCoin: Blockchain|null, setBlockchain: any, blockTransactions: any, storeBlockTransactions: any, key: any };
+export const AppContext = createContext<AppContextProps>(
+    { myCoin: null, setBlockchain: null, blockTransactions: null, storeBlockTransactions: null, key: null }
+);
 
 export const AppProvider = ({children}: {children: ReactElement|ReactElement[]}): ReactElement => {
     const [myCoin, setBlockchain] = useBlockchain();

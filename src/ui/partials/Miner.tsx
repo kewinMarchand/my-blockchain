@@ -8,12 +8,12 @@ import {TransactionsTable} from "../components/TransactionsTable";
 export const Miner = (): ReactElement => {
     const {myCoin, setBlockchain, key} = useContext(AppContext);
 
-    if (!myCoin) {
+    if (null === myCoin) {
         return <></>;
     }
 
     function handleClick() {
-        myCoin.minePendingTransactions(key.getPublic('hex'));
+        myCoin?.minePendingTransactions(key.getPublic('hex'));
         setBlockchain(recreateChain(myCoin));
     }
 

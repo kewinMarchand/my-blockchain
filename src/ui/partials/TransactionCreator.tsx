@@ -9,7 +9,7 @@ type TransactionFormValues = {to: string, amount: number};
 
 export const TransactionCreator = (): ReactElement => {
     const {myCoin, setBlockchain, key} = useContext(AppContext);
-    const [transactionFormValues, setTransactionFormValues] = useState<TransactionFormValues>();
+    const [transactionFormValues, setTransactionFormValues] = useState<TransactionFormValues>({to: '', amount: 0});
 
     function handleBlur(event: any) {
         setTransactionFormValues(prevState => ({...prevState, [event.target.name]: event.target.value}))
@@ -19,7 +19,7 @@ export const TransactionCreator = (): ReactElement => {
         event.preventDefault();
         const tx1 = new Transaction(key.getPublic('hex'), transactionFormValues.to, transactionFormValues.amount);
         tx1.signTransaction(key);
-        myCoin.addTransaction(tx1);
+        myCoin?.addTransaction(tx1);
         setBlockchain(recreateChain(myCoin));
     }
 
@@ -57,7 +57,7 @@ export const TransactionCreator = (): ReactElement => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <img src={myCoin.icon} alt={'token'} height={20} width={20}/>
+                                    <img src={myCoin?.icon} alt={'token'} height={20} width={20}/>
                                 </InputAdornment>
                             ),
                         }}

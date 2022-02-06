@@ -37,7 +37,7 @@ export const TransactionsTable = ({transactions}: {transactions: Transaction[]})
                         transactions.map((tx: Transaction) => (
                             <TableRow key={tx.timestamp}>
                                 <TableCell style={{display: 'flex', alignItems: 'center', gap: 8}}>
-                                    <img src={myCoin.icon} alt={'token'} height={16} width={16}/>
+                                    <img src={myCoin?.icon} alt={'token'} height={16} width={16}/>
                                     {tx.amount}
                                 </TableCell>
                                 <TableCell style={{maxWidth: 150}} className={'text-croped'}>
