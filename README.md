@@ -1,8 +1,10 @@
-#WIP: blockchain en Javascript
+#WIP: blockchain en Typescript
 
 Site statique à but éducatif servant à manipuler une blockchain.
 
 La blockchain est stockée dans le local storage.
+
+L'interface est accessible [ici](https://kma-typescript-blockchain.netlify.app/).
 
 > ## Actions possibles
 >
@@ -13,10 +15,9 @@ La blockchain est stockée dans le local storage.
 > ## Technos
 >
 > - Typescript
-> - React :
+> - React
 >  - custom hooks
 >  - context API
->  - ...
 > - Mui
 > - API Web Storage
 >

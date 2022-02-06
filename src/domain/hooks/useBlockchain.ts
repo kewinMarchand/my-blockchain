@@ -24,7 +24,7 @@ export function recreateChain(parsedChain: any): Blockchain {
     return new Blockchain(recreatedChain, parsedChain.difficulty, parsedChain.pendingTransactions, parsedChain.miningReward, parsedChain.chainValue);
 }
 
-const storeChain = (chain: Blockchain|null) => () => {
+const storeChain = (chain: Blockchain|null) => {
     if (null === chain) {
         return;
     }
@@ -46,7 +46,7 @@ export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
     }
 
     useEffect(getChain, []);
-    useEffect(storeChain(blockchain), [blockchain]);
+    useEffect(() => storeChain(blockchain), [blockchain]);
 
-    return [blockchain, setBlockchain]
+    return [blockchain, setBlockchain];
 }
