@@ -11,8 +11,8 @@ function App(): ReactElement {
     return (
         <Layout>
             <Container component={'main'}>
-                <Signin/>
                 <Blocks />
+                <Signin/>
                 <TransactionCreator/>
                 <Miner/>
                 <Reset/>

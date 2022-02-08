@@ -20,7 +20,7 @@ export const Signin = (): ReactElement => {
 
     return (
         <Section
-            title={null === user ? 'Register' : 'Welcome !'}
+            title={null === user ? 'Register' : `Welcome ${user.pseudo}`}
             subtitle={null === user ? 'Register & earn 100 tokens, registering creates tokens assigned to you' : 0 === userWalletValue ? 'You have generated 100 tokens by registering, you can mine a block to receive them and earn 100 more tokens for mining' : 'You can make transactions'}
         >
             <Box mt={3}>
@@ -45,17 +45,19 @@ export const Signin = (): ReactElement => {
                 :
                     <Box display={'flex'} flexDirection={'column'} gap={2}>
                         <TextField
-                            label={'Your public key'}
+                            label={'Your public key / Your wallet address'}
                             defaultValue={user.publicKey}
                             InputProps={{
                                 readOnly: true,
+                                disabled: true
                             }}
                         />
                         <TextField
-                            label={'Your private key'}
+                            label={'Your private key - Confidentiel !'}
                             defaultValue={user.privateKey}
                             InputProps={{
                                 readOnly: true,
+                                disabled: true
                             }}
                         />
                         <TextField
@@ -63,6 +65,7 @@ export const Signin = (): ReactElement => {
                             value={userWalletValue}
                             InputProps={{
                                 readOnly: true,
+                                disabled: true,
                                 startAdornment: (
                                     <InputAdornment position="start">
                                         <img src={myCoin?.icon} alt={'token'} height={20} width={20}/>

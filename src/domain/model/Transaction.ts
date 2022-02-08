@@ -42,7 +42,7 @@ export class Transaction {
         // Calculate the hash of this transaction, sign it with the key
         // and store it inside the transaction object
         const hashTx = this.calculateHash();
-        const sig = signingKey.sign('msg', hashTx, 'base64');
+        const sig = signingKey.sign(hashTx, signingKey, 'base64');
         this.signature = sig.toDER('hex');
     }
 

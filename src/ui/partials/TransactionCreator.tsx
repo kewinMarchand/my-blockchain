@@ -60,6 +60,8 @@ export const TransactionCreator = (): ReactElement => {
                         label={'To address'}
                         value={transactionFormValues.to}
                         onChange={handleChange}
+                        placeholder={'any string for now'}
+                        required
                     />
                     <TextField
                         inputRef={inputRef}
@@ -67,17 +69,19 @@ export const TransactionCreator = (): ReactElement => {
                         label={'Amount'}
                         type={'number'}
                         onChange={handleChange}
+                        required
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <img src={myCoin?.icon} alt={'token'} height={20} width={20}/>
                                 </InputAdornment>
                             ),
+                            inputProps: { min: 0, max: userWalletValue }
                         }}
                     />
                 </Box>
                 <Box mt={3}>
-                    <Button variant={'contained'} type={'submit'} color={'secondary'}>
+                    <Button variant={'contained'} type={'submit'} color={'secondary'} disabled={'' === transactionFormValues.to || 0 >= userWalletValue}>
                         Sign & create transaction
                     </Button>
                 </Box>

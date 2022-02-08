@@ -16,8 +16,9 @@ export const Miner = (): ReactElement => {
         if (null === user) {
             return;
         }
-        myCoin?.minePendingTransactions(user.publicKey);
-        setBlockchain(recreateChain(myCoin));
+        myCoin?.minePendingTransactions(user.publicKey)
+        const newChain = recreateChain(myCoin);
+        setBlockchain(newChain);
     }
 
     return (

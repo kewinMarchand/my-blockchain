@@ -1,6 +1,5 @@
 import {Block} from "./Block";
 import {Transaction} from "./Transaction";
-// @ts-ignore
 import blockchainIcon from '../../ui/assets/blockchainIcon.png';
 
 export class Blockchain {
@@ -12,7 +11,7 @@ export class Blockchain {
     public icon: string;
 
     // @ts-ignore
-    constructor(chain = [this.createGenesisBlock()], difficulty = 2, pendingTransactions: Transaction[] = [], miningReward= 100, chainValue = 0) {
+    constructor(chain: Block[], difficulty = 2, pendingTransactions: Transaction[] = [], miningReward= 100, chainValue = 0) {
         this.chain = chain;
         this.difficulty = difficulty;
         this.pendingTransactions = pendingTransactions;
@@ -62,8 +61,7 @@ export class Blockchain {
 
         // Verify the transaction
         if (!transaction.isValid()) {
-            /*@todo: bug ici*/
-            //throw new Error('Cannot add invalid transaction to chain');
+            throw new Error('Cannot add invalid transaction to chain');
         }
 
         if (transaction.amount <= 0) {

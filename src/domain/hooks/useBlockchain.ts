@@ -40,7 +40,7 @@ export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
         if (null !== chainFromStorage) {
             chain = recreateChain(JSON.parse(chainFromStorage));
         } else {
-            chain = new Blockchain();
+            chain = new Blockchain([new Block(Date.parse('2022-01-01'), [], '#')]);
         }
         setBlockchain(chain);
     }

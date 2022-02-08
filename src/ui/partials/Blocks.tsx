@@ -15,7 +15,7 @@ export const Blocks = (): ReactElement => {
     return (
         <Section
             title={'Blocks on chain'}
-            subtitle={'Each card represent a block on the chain. Click on a block to see the transactions stored inside.'}
+            subtitle={`Each ${showingCards ? 'card' : 'line'} represent a block on the chain. Click on a block to see the transactions stored inside.`}
         >
             {showingCards ?
                 <BlocksCards/>

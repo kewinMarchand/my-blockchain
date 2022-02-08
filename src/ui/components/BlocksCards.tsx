@@ -7,6 +7,8 @@ import {Block} from "../../domain/model/Block";
 export const BlocksCards = (): ReactElement => {
     const {myCoin} = useContext(AppContext);
 
+    console.log(myCoin)
+
     return (
         <Grid container spacing={3} component={'ul'}>
             {myCoin?.chain.map((block: Block, i: number) => (
