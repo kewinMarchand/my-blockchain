@@ -14,11 +14,11 @@ import {uiHelper} from "../../domain/helpers/uiHelper";
 
 export const BlocksTable = (): ReactElement => {
     const {myCoin, storeBlockTransactions} = useContext(AppContext);
-    const {} = useContext(AppContext);
 
     const handleBlockClick = (block: Block) => () => {
         storeBlockTransactions(block.transactions);
     }
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650, maxWidth: '100%'}} aria-label="simple table">

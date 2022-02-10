@@ -52,11 +52,10 @@ export const AppProvider = ({children}: {children: ReactElement|ReactElement[]})
     }
 
     function storeUser() {
-        if (null === user) {
-            return;
+        if (null !== user) {
+            localStorage.setItem('user', JSON.stringify(user));
+            offerRewardForSignin();
         }
-        localStorage.setItem('user', JSON.stringify(user));
-        offerRewardForSignin()
     }
 
     useEffect(storeUser, [user]);

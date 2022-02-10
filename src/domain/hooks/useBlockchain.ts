@@ -7,8 +7,7 @@ function recreateBlock(block: Block): Block {
     let recreatedTransactions: any[] = [];
     if (0 < block.transactions.length) {
         block.transactions.forEach(transaction => {
-            const tx = new Transaction(transaction.fromAddress, transaction.toAddress, transaction.amount, transaction.signature)
-            recreatedTransactions.push(tx);
+            recreatedTransactions.push(new Transaction(transaction.fromAddress, transaction.toAddress, transaction.amount, transaction.signature));
         })
     }
 
@@ -24,25 +23,22 @@ export function recreateChain(parsedChain: any): Blockchain {
     return new Blockchain(recreatedChain, parsedChain.difficulty, parsedChain.pendingTransactions, parsedChain.miningReward, parsedChain.chainValue);
 }
 
-const storeChain = (chain: Blockchain|null) => {
-    if (null === chain) {
-        return;
-    }
-    localStorage.setItem('chain', JSON.stringify(chain));
-}
-
-export const useBlockchain = (): [Blockchain|null, Dispatch<any>] => {
+export function useBlockchain(): [Blockchain|null, Dispatch<any>] {
     const [blockchain, setBlockchain] = useState<Blockchain|null>(null);
 
     function getChain() {
-        let chainFromStorage = localStorage.getItem('chain');
-        let chain;
+        const chainFromStorage = localStorage.getItem('chain');
         if (null !== chainFromStorage) {
-            chain = recreateChain(JSON.parse(chainFromStorage));
+            setBlockchain(recreateChain(JSON.parse(chainFromStorage)));
         } else {
-            chain = new Blockchain([new Block(Date.parse('2022-01-01'), [], '#')]);
+            setBlockchain(new Blockchain([new Block(Date.parse('2022-01-01'), [], '#')]));
         }
-        setBlockchain(chain);
+    }
+
+    function storeChain (chain: Blockchain|null) {
+        if (null !== chain) {
+            localStorage.setItem('chain', JSON.stringify(chain));
+        }
     }
 
     useEffect(getChain, []);
